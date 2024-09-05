@@ -14,6 +14,28 @@ Similarly, we create another isolate for the CPU-intensive task using Isolate.sp
 The _cpuTask function performs a simple but CPU-intensive calculation (summing numbers from 0 to 1 billion).
 The result is sent back to the main isolate using SendPort.
 
+## Asynchronous _cpuTask Function:
+
+The _cpuTask function is now marked as async to ensure it can await the responsePort.first call correctly.
+This ensures that the SendPort is correctly awaited and the result is sent back to the main isolate.
+
+## Ensuring Correct Data Flow:
+
+The await keyword is used appropriately to ensure that the data is correctly sent and received between the isolates.
+
+# API Isolate: 
+The apiIsolate function simulates fetching data from an API. It communicates back to the main isolate using a SendPort.
+# CPU-Intensive Task Isolate: 
+The computeIsolate function simulates a intensive computational task that counts a sum. Results are sent back to the main isolate via the SendPort.
+# UI Trigger and Display
+The main UI has buttons to trigger API fetch and computation. It displays results using state variables updated when messages are received from other isolates.
+# Security and Performance Notes
+Ensure that any data sent between isolates is thread-safe. Dart automatically copies messages between isolates.
+
+For real-world applications, especially involving networking or I/O, consider handling errors and timeouts.
+
+This basic framework can be scaled up with real API calls, error handling, and more complex computations or processes spread across multiple isolates to enhance your application performance and maintain responsiveness.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
